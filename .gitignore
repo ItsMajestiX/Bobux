@@ -2,4 +2,6 @@ packages/
 Bobux/bin
 Bobux/obj
 Bobux/Refrences
+Bobux/bobux.db
 !Bobux/Refrences/Refrences.md
+.vs/

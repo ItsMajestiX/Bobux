@@ -10,27 +10,19 @@ namespace Bobux.Database
 {
     public class BobuxContext : DbContext
     {
-        private string _path;
-
-        public BobuxContext(string path)
-        {
-            _path = path;
-        }
-
         public DbSet<User> Users { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlite("Data Source=" + _path);
+            => options.UseSqlite("Data Source=" + Bobux.Instance.Config.DBPath);
     }
 
     public class User
     {
-        public int SteamID { get; set; }
-        public int DiscordID { get; set; }
+        [Key]
+        public int UserId { get; set; }
+        public UInt64? SteamId { get; set; }
+        public UInt64? DiscordId { get; set; }
         public int Bobux { get; set; }
         public int TotalBobux { get; set; }
     }
 }
-
-/*
-using (var db = new BobuxContext(Bobux.Instance.Config.DBPath)) {}
-*/

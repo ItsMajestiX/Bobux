@@ -1,6 +1,9 @@
-﻿using CommandSystem;
+﻿using Bobux.Database;
+using CommandSystem;
 using RemoteAdmin;
 using System;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Bobux.Commands
 {
@@ -15,7 +18,13 @@ namespace Bobux.Commands
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
-            response = "setbobux " + sender.LogName;
+            using (var db = new BobuxContext())
+            {
+                User user = Util.GetUser(arguments, db);
+                user.Bobux = int.Parse(arguments.Last());
+                user.TotalBobux = user.TotalBobux - user.Bobux + int.Parse(arguments.Last());
+            }
+            response = "";
             return true;
         }
     }
