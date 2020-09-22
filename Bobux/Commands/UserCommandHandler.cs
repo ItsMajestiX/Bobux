@@ -60,22 +60,30 @@ namespace Bobux.Commands
 
         internal static void OnSendingConsoleCommand(SendingConsoleCommandEventArgs ev)
         {
+            Exiled.API.Features.Log.Debug("foo");
             Type[] typelist = GetTypesInNamespace(Assembly.GetExecutingAssembly(), "Bobux.Commands");
             foreach (Type i in typelist)
             {
                 if (typeof(ICommand).IsAssignableFrom(i))
-                {;
-                    ICommand j = i.GetConstructor(Type.EmptyTypes).Invoke(new object[] { }) as ICommand;
-                    if (GetCapitalizations(new List<string> { j.Command }.Concat(j.Aliases).ToArray()).Contains(ev.Name))
+                {
+                    Exiled.API.Features.Log.Debug(i.Name);
+                    ConstructorInfo m = i.GetConstructor(Type.EmptyTypes);
+                    //too lazy to properly check for interfaces
+                    if (m != null)
                     {
-                        if (j is IUserCommand)
+                        ICommand j = m.Invoke(new object[] { }) as ICommand;
+                        Exiled.API.Features.Log.Debug("baz");
+                        if (GetCapitalizations(new List<string> { j.Command }.Concat(j.Aliases).ToArray()).Contains(ev.Name))
                         {
-                            string executeOut = "";
-                            j.Execute(new ArraySegment<string>(ev.Arguments.ToArray()), new ExiledPlayerCast(ev.Player), out executeOut);
-                            ev.ReturnMessage = executeOut;
-                            //ev.Player.SendConsoleMessage(executeOut, "white");
-                            ev.Allow = false;
-                            return;
+                            if (j is IUserCommand)
+                            {
+                                string executeOut = "";
+                                j.Execute(new ArraySegment<string>(ev.Arguments.ToArray()), new ExiledPlayerCast(ev.Player), out executeOut);
+                                ev.ReturnMessage = executeOut;
+                                //ev.Player.SendConsoleMessage(executeOut, "white");
+                                ev.Allow = false;
+                                return;
+                            }
                         }
                     }
                 }

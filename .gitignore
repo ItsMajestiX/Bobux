@@ -5,3 +5,5 @@ Bobux/Refrences
 Bobux/bobux.db
 !Bobux/Refrences/Refrences.md
 .vs/
+/BobuxServer/env
+/BobuxServer/bobux.db

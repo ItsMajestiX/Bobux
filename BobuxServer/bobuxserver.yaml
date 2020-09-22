@@ -1,0 +1,2 @@
+#Sets the path of the SQLite database to read/write from, relavtive to this file. If on windows, do not use slashes, but use double backslashes instead.
+dbpath: bobux.db

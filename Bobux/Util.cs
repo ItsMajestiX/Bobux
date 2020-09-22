@@ -22,7 +22,7 @@ namespace Bobux
                 s += i;
                 foreach (Exiled.API.Features.Player player in Exiled.API.Features.Player.List)
                 {
-                    if (player.Nickname == s || player.RawUserId == s)
+                    if (player.Nickname == s || player.RawUserId == s || player.DisplayNickname == s)
                     {
                         tempOut = args.Segment(k);
                         tempRet = player;
@@ -48,29 +48,34 @@ namespace Bobux
             if (player != null)
             {
                 Exiled.API.Enums.AuthenticationType auth = player.AuthenticationType;
-                User user;
                 if (auth == Exiled.API.Enums.AuthenticationType.Discord)
                 {
-                    user = db.Users.Single(u => u.DiscordId == UInt64.Parse(player.RawUserId));
-                    if (user != null)
+                    try
                     {
-                        return user;
+                        User idk = db.Users.Single(u => u.DiscordId == UInt64.Parse(player.RawUserId));
+                        idk.Player = player;
+                        return idk;
                     }
-                    else
+                    catch
                     {
-                        return db.Add(new User { SteamId = null, DiscordId = UInt64.Parse(player.RawUserId), Bobux = 0, TotalBobux = 0 }).Entity;
+                        User idk = db.Add(new User { SteamId = null, DiscordId = UInt64.Parse(player.RawUserId), Bobux = 0, TotalBobux = 0 }).Entity;
+                        idk.Player = player;
+                        return idk;
                     }
                 }
                 else if (auth == Exiled.API.Enums.AuthenticationType.Steam)
                 {
-                    user = db.Users.Single(u => u.SteamId == UInt64.Parse(player.RawUserId));
-                    if (user != null)
+                    try
                     {
-                        return user;
+                        User idk = db.Users.Single(u => u.SteamId == UInt64.Parse(player.RawUserId));
+                        idk.Player = player;
+                        return idk;
                     }
-                    else
+                    catch
                     {
-                        return db.Add(new User { SteamId = UInt64.Parse(player.RawUserId), DiscordId = null, Bobux = 0, TotalBobux = 0 }).Entity;
+                        User idk = db.Add(new User { SteamId = UInt64.Parse(player.RawUserId), DiscordId = null, Bobux = 0, TotalBobux = 0 }).Entity;
+                        idk.Player = player;
+                        return idk;
                     }
                 }
                 throw new BadAuthException("The player found is using an unsupported auth type. The only types currently supported are Steam and Discord auth");
