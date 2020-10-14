@@ -7,3 +7,4 @@ Bobux/bobux.db
 .vs/
 /BobuxServer/env
 /BobuxServer/bobux.db
+**/__pycache__/
