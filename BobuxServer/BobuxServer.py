@@ -1,0 +1,2 @@
+﻿import bobuxserver
+bobuxserver.start()
