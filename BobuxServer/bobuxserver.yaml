@@ -1,2 +1,4 @@
-#Sets the path of the SQLite database to read/write from, relavtive to this file. If on windows, do not use slashes, but use double backslashes instead.
+# Sets the path of the SQLite database to read/write from, relavtive to this file. If on windows, do not use slashes, but use double backslashes instead.
 dbpath: bobux.db
+# Sets the path of the SSL certificate for the websocket server in .pem format.
+certpath: cert.pem

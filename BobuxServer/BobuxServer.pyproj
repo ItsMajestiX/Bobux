@@ -23,10 +23,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BobuxServer.py" />
+    <Compile Include="bobuxserver\config\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="bobuxserver\db\tables.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="bobuxserver\db\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="bobuxserver\logic\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="bobuxserver\websockets\serverlogic.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="bobuxserver\websockets\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="bobuxserver\__init__.py">
@@ -51,6 +63,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bobuxserver\db\" />
+    <Folder Include="bobuxserver\config\" />
+    <Folder Include="bobuxserver\logic\" />
+    <Folder Include="bobuxserver\websockets\" />
     <Folder Include="migrations\" />
     <Folder Include="migrations\versions\" />
     <Folder Include="migrations\versions\__pycache__\" />

@@ -13,9 +13,15 @@ class User(Base):
         bobux = Column('Bobux', Integer, nullable=False)
         totalBobux = Column('TotalBobux', Integer, nullable=False)
 
+        def __repr__(self):
+            return {'id': self.id, 'steam': self.steamId, 'discord': self.discordId, 'bobux': self.bobux, 'bobuxtotal': self.totalBobux}
+
 class API(Base):
         __tablename__ = 'API'
         key = Column('Key', guid.GUID, primary_key=True)
         secret = Column('Secret', String(64), nullable=False)
         permissions = Column('Permissions', Integer, nullable=False)
         created = Column('Created', Integer, nullable=False)
+
+        def __repr__(self):
+            return {'key': self.key, 'secret': self.secret, 'permissions': self.permissions, 'created': self.created}
